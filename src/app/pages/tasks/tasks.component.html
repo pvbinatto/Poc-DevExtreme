@@ -1,0 +1,90 @@
+<div class="container">
+  <h2 class="content-block">Cadastro</h2>
+
+  <dx-data-grid
+    [dataSource]="gridSource"
+    (onToolbarPreparing)="onToolbarPreparing($event)"
+    [allowColumnReordering]="true"
+  >
+    <dxo-column-chooser
+      [enabled]="true"
+      mode="dragAndDrop"
+    ></dxo-column-chooser>
+    <dxo-export [enabled]="true"></dxo-export>
+    <dxo-group-panel [visible]="true"></dxo-group-panel>
+    <dxo-grouping #expand [autoExpandAll]="true"></dxo-grouping>
+    <dxo-filter-row [visible]="true"></dxo-filter-row>
+    <dxo-editing
+      [allowUpdating]="true"
+      [allowAdding]="true"
+      [allowDeleting]="true"
+      [useIcons]="true"
+      mode="popup"
+    >
+    </dxo-editing>
+
+    <dxi-column dataField="ID" [width]="50" [visible]="false" dataType="number"></dxi-column>
+    <dxi-column dataField="CompanyName" dataType="string"></dxi-column>
+    <dxi-column dataField="Zipcode" dataType="number"></dxi-column>
+    <dxi-column dataField="Website" dataType="string"></dxi-column>
+    <dxi-column type="buttons">
+      <dxi-button name="edit" [onClick]="editClick"></dxi-button>
+      <dxi-button name="delete" [onClick]="deleteClick"></dxi-button>
+    </dxi-column>
+    <dxo-paging [pageSize]="5"></dxo-paging>
+    <dxo-pager
+      [visible]="true"
+      [allowedPageSizes]="[5, 10, 20]"
+      [showPageSizeSelector]="true"
+      [showInfo]="true"
+      [showNavigationButtons]="true"
+    >
+    </dxo-pager>
+  </dx-data-grid>
+
+  <dx-popup
+    [(title)]="popupMode"
+    [closeOnOutsideClick]="true"
+    [(visible)]="popupVisible"
+    [height]="'auto'"
+    [width]="700"
+  >
+    >
+    <dxi-toolbar-item
+      widget="dxButton"
+      location="after"
+      toolbar="bottom"
+      [options]="{
+        text: 'Cancel',
+        onClick: cancelClick
+      }"
+    ></dxi-toolbar-item>
+    <dxi-toolbar-item
+      widget="dxButton"
+      location="after"
+      toolbar="bottom"
+      [options]="{
+        text: 'Confirm',
+        type: 'success',
+        onClick: confirmClick
+      }"
+    ></dxi-toolbar-item>
+    <div *dxTemplate="let data of 'content'">
+      <dx-form #form [(formData)]="formData" labelLocation="top" [colCount]="2">
+        >
+        <dxi-item dataField="ID">
+          <dxi-validation-rule type="required"></dxi-validation-rule>
+        </dxi-item>
+        <dxi-item dataField="CompanyName">
+          <dxi-validation-rule type="required"></dxi-validation-rule>
+        </dxi-item>
+        <dxi-item dataField="Zipcode">
+          <dxi-validation-rule type="required"></dxi-validation-rule>
+        </dxi-item>
+        <dxi-item dataField="Website">
+          <dxi-validation-rule type="required"></dxi-validation-rule>
+        </dxi-item>
+      </dx-form>
+    </div>
+  </dx-popup>
+</div>
